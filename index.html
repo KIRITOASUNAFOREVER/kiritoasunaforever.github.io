@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Start - SAO Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             background-color: black;
             overflow: hidden;
-            font-family: "Arial", sans-serif;
+            /* Changed default font for the page, button will override */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         #linkStartVideo {
-            width: 100vw;
+            width: 100%;
             height: 100vh;
-            object-fit: contain;
+            object-fit: cover;
             display: none; /* Hidden until "Link Start" is clicked */
-            background-color: black;
         }
         #fadeOverlay {
             position: absolute;
@@ -30,37 +31,72 @@
             transition: opacity 2s; /* Controls the speed of fade when opacity changes */
             z-index: 2;
         }
+
+        /* Updated Link Start Button Style */
         #linkStartButton {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 3em;
-            color: white;
+            /* Adjusted font size */
+            font-size: 2.2em; 
+            /* SAO-like font: Orbitron, with a common sans-serif fallback */
+            font-family: 'Orbitron', sans-serif; 
+            /* SAO-like color: vibrant light blue */
+            color: #00D4FF; 
             cursor: pointer;
             z-index: 3;
-            animation: pulse 1.5s infinite;
+            /* Additional text styling for SAO feel */
+            text-transform: uppercase;
+            letter-spacing: 3px; /* Increased spacing a bit for effect */
+            font-weight: 700; /* Make font bolder if available */
+            /* Glow effect using text-shadow */
+            text-shadow:
+                0 0 5px #00D4FF,
+                0 0 10px #00D4FF,
+                0 0 15px #00D4FF,
+                0 0 20px #00AACC, /* Slightly deeper blue for broader glow */
+                0 0 30px #00AACC,
+                0 0 40px #0077FF; /* Deepest blue for the outermost glow */
+            /* Updated animation */
+            animation: pulseSaoStyle 2s infinite alternate; 
         }
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 0.7;
+
+        /* Updated Keyframes for SAO-style Pulse/Glow */
+        @keyframes pulseSaoStyle {
+            from {
+                opacity: 0.75;
+                text-shadow:
+                    0 0 5px #00D4FF,
+                    0 0 10px #00D4FF,
+                    0 0 15px #00AACC,
+                    0 0 20px #00AACC,
+                    0 0 25px #0077FF,
+                    0 0 30px #0077FF;
             }
-            50% {
+            to {
                 opacity: 1;
+                text-shadow:
+                    0 0 7px #00D4FF,  /* Slightly more intense inner glow */
+                    0 0 12px #00D4FF,
+                    0 0 20px #00AACC, /* Broader mid glow */
+                    0 0 30px #00AACC,
+                    0 0 40px #0077FF, /* Expanded outer glow */
+                    0 0 55px #0077FF;
             }
         }
     </style>
 </head>
 <body>
     <video id="linkStartVideo" preload="auto" muted>
-        <source src="https://kiritoasunaforever.github.io/Sword_Art_Online_LINK_START%20(1).mp4" type="video/mp4">
+        <source src="Sword_Art_Online_LINK_START (1).mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
     <div id="fadeOverlay"></div>
 
     <audio id="linkStartAudio" preload="auto">
-        <source src="https://kiritoasunaforever.github.io/Sword_Art_Online_LINK_START%20(1).mp3" type="audio/mp3">
+        <source src="Sword_Art_Online_LINK_START (1).mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
@@ -73,18 +109,18 @@
         const button = document.getElementById('linkStartButton');
 
         button.addEventListener('click', () => {
-            button.style.display = 'none'; // Hide the button
-            video.style.display = 'block'; // Show the video
-            video.muted = false; // Enable sound (unmute video's own audio track)
-            video.play(); // Start the video
-            audio.play(); // Start the separate audio file
+            button.style.display = 'none'; 
+            video.style.display = 'block'; 
+            video.muted = false; 
+            video.play(); 
+            audio.play(); 
         });
 
         video.addEventListener('ended', () => {
             overlay.style.opacity = '1'; 
             setTimeout(() => {
                 window.location.href = "https://github.com/KIRITOASUNAFOREVER";
-            }, 2000); // Wait for the fade transition to complete before redirecting
+            }, 2000); 
         });
     </script>
 </body>
