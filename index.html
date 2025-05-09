@@ -3,82 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kirito's Profile - SAO Theme</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Custom styles for theme -->
-    <script src="linkstart.js"></script> <!-- Custom script for Link Start sound -->
+    <link rel="stylesheet" href="styles.css">
+    <title>Link Start!</title>
 </head>
 <body>
-    <!-- Link Start Animation Section -->
-    <div class="linkstart-container" align="center">
-        <img src="https://media.tenor.com/CHc0B6c4GOUAAAAC/sao-sword-art-online.gif" alt="Link Start GIF" width="300"/>
-        <h1>« Edward S. // Player ID: kiritoasunaforever »</h1>
-        <h3>Data Alchemist & Code Weaver <br /> Traversing the Digital Frontiers from Indonesia</h3>
-    </div>
 
-    <hr>
+<div id="overlay">
+    <img id="linkStartGif" src="Sword_Art_Online.gif" alt="Link Start">
+    <button id="linkStartButton">⚔️ Link Start ⚔️</button>
+    <audio id="linkStartMusic">
+        <source src="sao-log-in-screen2.mp3" type="audio/mpeg">
+    </audio>
+</div>
 
-    <!-- Quote Section -->
-    <p align="center">
-        <em>"This world may be a simulation, but my determination to build and innovate is very real."</em>
-    </p>
+<script>
+    const button = document.getElementById('linkStartButton');
+    const overlay = document.getElementById('overlay');
+    const music = document.getElementById('linkStartMusic');
 
-    <hr>
+    button.addEventListener('click', () => {
+        button.style.display = 'none';
+        music.play();
+        overlay.classList.add('fadeOut');
+        setTimeout(() => {
+            window.location.href = "https://github.com/KIRITOASUNAFOREVER";
+        }, 13000); // 13 seconds to match the music duration
+    });
+</script>
 
-    <!-- Achievements Section -->
-    <div align="center">
-        <a href="https://github.com/ryo-ma/github-profile-trophy">
-            <img src="https://github-profile-trophy.vercel.app/?username=kiritoasunaforever&theme=onedark&margin-w=15&margin-h=15&column=7&no-frame=true" alt="Player Achievements"/>
-        </a>
-    </div>
-
-    <hr>
-
-    <!-- Player Status Log Section -->
-    <h3>Player Status Log</h3>
-    <ul>
-        <li>Current Guild: <strong>Medco Energi Internasional</strong> (Data Scientist)</li>
-        <li>Active Quest: 🌱 Mastering the Arts of <strong>GoLang</strong></li>
-        <li>Specialization Call: 💬 Let's discuss <strong>Machine Learning, Deep Learning, AI</strong> strategies!</li>
-        <li>Message Relay: 📫 <strong>sulistijonoedward@gmail.com</strong></li>
-        <li>Experience Scroll: 📄 <a href="https://drive.google.com/file/d/12osPh3CkSEreqidnm9JFaUsaa34O-XPb/view?usp=drive_link">Review My Quest History</a></li>
-    </ul>
-
-    <hr>
-
-    <!-- Skills & Arsenal Section -->
-    <h3>Acquired Skills & Arsenal</h3>
-    <p align="center">
-        <img src="https://skillicons.dev/icons?i=python,csharp,java,cpp,go,docker,git,react,tensorflow,aws,azure,gcp,linux,bash,postgresql,mysql,mongodb,redis&theme=dark" alt="Skills Arsenal"/>
-    </p>
-
-    <hr>
-
-    <!-- Holo-Network Connections Section -->
-    <h3>Holo-Network Connections</h3>
-    <p align="center">
-        <a href="https://twitter.com/edwardsulistij1" target="_blank">
-            <img src="https://img.shields.io/badge/Twitter-%231DA1F2.svg?&style=for-the-badge&logo=twitter&logoColor=white&theme=dark" />
-        </a>
-        <a href="https://linkedin.com/in/edwardsulistijono" target="_blank">
-            <img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white&theme=dark" />
-        </a>
-        <a href="https://fb.com/edward sulistijono" target="_blank">
-            <img src="https://img.shields.io/badge/Facebook-%231877F2.svg?&style=for-the-badge&logo=facebook&logoColor=white&theme=dark" />
-        </a>
-        <a href="https://instagram.com/edwardsulistijono" target="_blank">
-            <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?&style=for-the-badge&logo=instagram&logoColor=white&theme=dark" />
-        </a>
-        <a href="https://www.hackerrank.com/sulistijonoedwa1" target="_blank">
-            <img src="https://img.shields.io/badge/HackerRank-%2320BE51.svg?&style=for-the-badge&logo=hackerrank&logoColor=white&theme=dark" />
-        </a>
-    </p>
-
-    <hr>
-
-    <!-- Call-to-Action Section -->
-    <div align="center">
-        <p><em>Need a party member for your next data-driven quest or development raid?</em></p>
-        <p><strong>« Send a Party Invite »</strong></p>
-    </div>
 </body>
 </html>
