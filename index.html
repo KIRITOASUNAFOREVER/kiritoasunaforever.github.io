@@ -48,6 +48,18 @@
         #linkStartButton:hover {
             background-color: #005bb5;
         }
+        .fadeOut {
+            animation: fadeOutAnimation 1.5s forwards;
+        }
+        @keyframes fadeOutAnimation {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
     </style>
 </head>
 <body>
@@ -71,43 +83,20 @@
         const overlay = document.getElementById('fadeOverlay');
         const button = document.getElementById('linkStartButton');
 
-        const today = new Date().toDateString(); // Get today's date
-
-        // Check if the user has visited today
-        const lastVisit = localStorage.getItem('lastVisit');
-
-        // If the user has not visited today, play video and audio and then redirect
-        if (lastVisit !== today) {
-            // Set last visit date to today
-            localStorage.setItem('lastVisit', today);
-
-            // Trigger video and audio on page load
-            window.addEventListener('load', () => {
-                video.style.display = 'block';
-                video.muted = false;
-                video.play();
-                audio.play();
-            });
-
-            // When the video ends, fade out and redirect to your GitHub profile
-            video.addEventListener('ended', () => {
-                overlay.style.opacity = '1'; 
-                setTimeout(() => {
-                    window.location.href = "https://github.com/KIRITOASUNAFOREVER"; // Redirect to GitHub
-                }, 2000); // Wait for the fade transition to complete
-            });
-        } else {
-            // If the user has visited today, just show the Link Start button
-            button.style.display = 'block';
-        }
-
-        // When the button is clicked, play the video and audio
         button.addEventListener('click', () => {
             button.style.display = 'none'; // Hide the button
             video.style.display = 'block'; // Show the video
             video.muted = false; // Enable sound (unmute the video)
             video.play(); // Start the video
             audio.play(); // Start the audio
+        });
+
+        video.addEventListener('ended', () => {
+            // Fade to black after video ends
+            overlay.style.opacity = '1'; 
+            setTimeout(() => {
+                window.location.href = "https://github.com/KIRITOASUNAFOREVER"; // Redirect to your GitHub profile
+            }, 2000); // Wait for the fade transition to complete before redirecting
         });
     </script>
 </body>
