@@ -4,23 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Start - SAO Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Your new CSS for body and initial overlay */
         body, html {
             margin: 0;
-            padding: 0;
-            background-color: black;
+            height: 100%; /* Ensure html and body take full height */
             overflow: hidden;
-            /* Changed default font for the page, button will override */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            font-family: Arial, sans-serif; /* Added a default font */
         }
+
+        #overlay { /* This is your new initial overlay */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Will be on top initially */
+        }
+
+        #linkStartGif {
+            width: 500px; /* Adjust as needed, ensure you have a GIF */
+            max-width: 90%; /* Make it responsive */
+        }
+
+        #linkStartButton { /* Your new button style */
+            margin-top: 20px;
+            padding: 12px 25px; /* Slightly increased padding */
+            font-size: 20px;
+            color: white;
+            background-color: #0077ff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth hover transition */
+        }
+
+        #linkStartButton:hover {
+            background-color: #005bb5;
+        }
+
+        .fadeOut {
+            animation: fadeOutAnimation 1.5s forwards;
+        }
+
+        @keyframes fadeOutAnimation {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                visibility: hidden; /* Hide after fading */
+            }
+        }
+
+        /* CSS for the main video (from previous setup) */
         #linkStartVideo {
             width: 100%;
             height: 100vh;
             object-fit: cover;
-            display: none; /* Hidden until "Link Start" is clicked */
+            display: none; /* Hidden until initial overlay is gone */
+            position: absolute; /* Ensure it's layered correctly if needed */
+            top: 0;
+            left: 0;
+            z-index: 1; /* Below the videoEndOverlay but above default body */
         }
-        #fadeOverlay {
+
+        /* CSS for the overlay that appears AFTER video finishes (from previous setup) */
+        #videoEndOverlay { /* Renamed for clarity from original #fadeOverlay */
             position: absolute;
             top: 0;
             left: 0;
@@ -28,99 +82,69 @@
             height: 100vh;
             background-color: black;
             opacity: 0; /* Initially transparent */
-            transition: opacity 2s; /* Controls the speed of fade when opacity changes */
-            z-index: 2;
-        }
-
-        /* Updated Link Start Button Style */
-        #linkStartButton {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            /* Adjusted font size */
-            font-size: 2.2em; 
-            /* SAO-like font: Orbitron, with a common sans-serif fallback */
-            font-family: 'Orbitron', sans-serif; 
-            /* SAO-like color: vibrant light blue */
-            color: #00D4FF; 
-            cursor: pointer;
-            z-index: 3;
-            /* Additional text styling for SAO feel */
-            text-transform: uppercase;
-            letter-spacing: 3px; /* Increased spacing a bit for effect */
-            font-weight: 700; /* Make font bolder if available */
-            /* Glow effect using text-shadow */
-            text-shadow:
-                0 0 5px #00D4FF,
-                0 0 10px #00D4FF,
-                0 0 15px #00D4FF,
-                0 0 20px #00AACC, /* Slightly deeper blue for broader glow */
-                0 0 30px #00AACC,
-                0 0 40px #0077FF; /* Deepest blue for the outermost glow */
-            /* Updated animation */
-            animation: pulseSaoStyle 2s infinite alternate; 
-        }
-
-        /* Updated Keyframes for SAO-style Pulse/Glow */
-        @keyframes pulseSaoStyle {
-            from {
-                opacity: 0.75;
-                text-shadow:
-                    0 0 5px #00D4FF,
-                    0 0 10px #00D4FF,
-                    0 0 15px #00AACC,
-                    0 0 20px #00AACC,
-                    0 0 25px #0077FF,
-                    0 0 30px #0077FF;
-            }
-            to {
-                opacity: 1;
-                text-shadow:
-                    0 0 7px #00D4FF,  /* Slightly more intense inner glow */
-                    0 0 12px #00D4FF,
-                    0 0 20px #00AACC, /* Broader mid glow */
-                    0 0 30px #00AACC,
-                    0 0 40px #0077FF, /* Expanded outer glow */
-                    0 0 55px #0077FF;
-            }
+            transition: opacity 2s ease-in-out; /* Smooth fade-in */
+            z-index: 2; /* Above the video, below the initial #overlay if it were still visible */
+            display: none; /* Initially hidden, made visible via JS */
         }
     </style>
 </head>
 <body>
+    <div id="overlay">
+        <img id="linkStartGif" src="link_start_animation.gif" alt="Link Start Animation">
+        <button id="linkStartButton">Link Start</button>
+    </div>
+
     <video id="linkStartVideo" preload="auto" muted>
         <source src="Sword_Art_Online_LINK_START (1).mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
-    <div id="fadeOverlay"></div>
+    <div id="videoEndOverlay"></div>
 
     <audio id="linkStartAudio" preload="auto">
         <source src="Sword_Art_Online_LINK_START (1).mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
-    <div id="linkStartButton">Link Start</div>
-
     <script>
-        const video = document.getElementById('linkStartVideo');
-        const audio = document.getElementById('linkStartAudio');
-        const overlay = document.getElementById('fadeOverlay');
-        const button = document.getElementById('linkStartButton');
+        const initialScreenOverlay = document.getElementById('overlay');
+        const newButton = document.getElementById('linkStartButton'); // Button in your new overlay
+        
+        const videoPlayer = document.getElementById('linkStartVideo');
+        const mainAudio = document.getElementById('linkStartAudio');
+        const endTransitionOverlay = document.getElementById('videoEndOverlay');
 
-        button.addEventListener('click', () => {
-            button.style.display = 'none'; 
-            video.style.display = 'block'; 
-            video.muted = false; 
-            video.play(); 
-            audio.play(); 
+        // Hide the video end overlay initially
+        endTransitionOverlay.style.display = 'block'; // Keep it in layout for opacity transition
+        endTransitionOverlay.style.opacity = '0';
+
+
+        newButton.addEventListener('click', () => {
+            initialScreenOverlay.classList.add('fadeOut');
+
+            // Listen for the end of the fadeOut animation on the initial overlay
+            initialScreenOverlay.addEventListener('animationend', () => {
+                initialScreenOverlay.style.display = 'none'; // Completely hide it
+
+                // Now show and play the video
+                videoPlayer.style.display = 'block';
+                videoPlayer.muted = false; // Unmute the video
+                videoPlayer.play().catch(error => {
+                    console.error("Video play failed:", error);
+                    // Handle browsers that might block autoplay with sound
+                    // You might need another user interaction to start video if this fails
+                });
+                mainAudio.play().catch(error => {
+                    console.error("Audio play failed:", error);
+                });
+            }, { once: true }); // Ensure this listener runs only once
         });
 
-        video.addEventListener('ended', () => {
-            overlay.style.opacity = '1'; 
+        videoPlayer.addEventListener('ended', () => {
+            endTransitionOverlay.style.opacity = '1'; // Fade in the black overlay
             setTimeout(() => {
-                window.location.href = "https://github.com/KIRITOASUNAFOREVER";
-            }, 2000); 
+                window.location.href = "https://github.com/KIRITOASUNAFOREVER"; // Redirect
+            }, 2000); // Wait for the 2s fade transition of endTransitionOverlay
         });
     </script>
 </body>
