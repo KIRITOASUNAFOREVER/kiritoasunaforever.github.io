@@ -4,109 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Start - SAO Experience</title>
-    <style>
-        body, html {
-            margin: 0;
-            height: 100%;
-            overflow: hidden;
-            background-color: black;
-            font-family: Arial, sans-serif;
-        }
-
-        #overlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        #linkStartGif {
-            width: 500px;
-            max-width: 90%;
-        }
-
-        #linkStartButton {
-            margin-top: 20px;
-            padding: 12px 25px;
-            font-size: 20px;
-            color: white;
-            background-color: #0077ff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #linkStartButton:hover {
-            background-color: #005bb5;
-        }
-
-        .fadeOut {
-            animation: fadeOutAnimation 1.5s forwards;
-        }
-
-        @keyframes fadeOutAnimation {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-
-        /* === Updated CSS for #linkStartVideo === */
-        #linkStartVideo {
-            /* New size for the video player */
-            width: 80vw;   /* 80% of viewport width */
-            height: auto;  /* Maintain aspect ratio */
-            max-height: 80vh; /* Max 80% of viewport height */
-
-            /* Centering the video player */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-
-            /* How the video content fits in the new dimensions */
-            object-fit: contain; /* Shows entire video, letterboxes if needed */
-                                 /* Use 'cover' to fill and crop if preferred */
-            
-            display: none;      /* Hidden initially */
-            z-index: 1;         /* Ensure it's above the body background */
-        }
-
-        #videoEndOverlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: black;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            z-index: 2; 
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="overlay">
-        <img id="linkStartGif" src="link_start_animation.gif" alt="Link Start Animation">
-        <button id="linkStartButton">Link Start</button>
+        <div>
+            <img id="linkStartGif" src="https://media.tenor.com/CHc0B6c4GOUAAAAC/sao-sword-art-online.gif" alt="Link Start">
+            <button id="linkStartButton">Link Start</button>
+        </div>
     </div>
 
-    <video id="linkStartVideo" preload="auto" muted>
+    <video id="linkStartVideo" preload="auto">
         <source src="Sword_Art_Online_LINK_START (1).mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-
-    <div id="videoEndOverlay"></div>
 
     <audio id="linkStartAudio" preload="auto">
         <source src="Sword_Art_Online_LINK_START (1).mp3" type="audio/mp3">
@@ -114,36 +25,20 @@
     </audio>
 
     <script>
-        const initialScreenOverlay = document.getElementById('overlay');
-        const newButton = document.getElementById('linkStartButton');
-        
-        const videoPlayer = document.getElementById('linkStartVideo');
-        const mainAudio = document.getElementById('linkStartAudio');
-        const endTransitionOverlay = document.getElementById('videoEndOverlay');
+        const video = document.getElementById('linkStartVideo');
+        const audio = document.getElementById('linkStartAudio');
+        const overlay = document.getElementById('overlay');
+        const button = document.getElementById('linkStartButton');
 
-        endTransitionOverlay.style.display = 'block';
-        endTransitionOverlay.style.opacity = '0';
-
-        newButton.addEventListener('click', () => {
-            initialScreenOverlay.classList.add('fadeOut');
-            initialScreenOverlay.addEventListener('animationend', () => {
-                initialScreenOverlay.style.display = 'none';
-                videoPlayer.style.display = 'block';
-                videoPlayer.muted = false;
-                videoPlayer.play().catch(error => {
-                    console.error("Video play failed:", error);
-                });
-                mainAudio.play().catch(error => {
-                    console.error("Audio play failed:", error);
-                });
-            }, { once: true });
+        button.addEventListener('click', () => {
+            overlay.classList.add('fadeOut'); // Trigger fade out animation
+            audio.play();
+            video.style.display = 'block';
+            video.play();
         });
 
-        videoPlayer.addEventListener('ended', () => {
-            endTransitionOverlay.style.opacity = '1';
-            setTimeout(() => {
-                window.location.href = "https://github.com/KIRITOASUNAFOREVER";
-            }, 2000);
+        video.addEventListener('ended', () => {
+            window.location.href = "https://github.com/KIRITOASUNAFOREVER";
         });
     </script>
 </body>
