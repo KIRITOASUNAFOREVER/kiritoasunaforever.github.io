@@ -13,10 +13,11 @@
             font-family: "Arial", sans-serif;
         }
         #linkStartVideo {
-            width: 100%;
+            width: 100vw;
             height: 100vh;
-            object-fit: cover;
+            object-fit: contain;
             display: none; /* Hidden until "Link Start" is clicked */
+            background-color: black;
         }
         #fadeOverlay {
             position: absolute;
@@ -52,14 +53,14 @@
 </head>
 <body>
     <video id="linkStartVideo" preload="auto" muted>
-        <source src="Sword_Art_Online_LINK_START (1).mp4" type="video/mp4">
+        <source src="https://kiritoasunaforever.github.io/Sword_Art_Online_LINK_START%20(1).mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
     <div id="fadeOverlay"></div>
 
     <audio id="linkStartAudio" preload="auto">
-        <source src="Sword_Art_Online_LINK_START (1).mp3" type="audio/mp3">
+        <source src="https://kiritoasunaforever.github.io/Sword_Art_Online_LINK_START%20(1).mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
@@ -77,11 +78,9 @@
             video.muted = false; // Enable sound (unmute video's own audio track)
             video.play(); // Start the video
             audio.play(); // Start the separate audio file
-            // NB: No change to overlay.opacity here, so no fade on click
         });
 
         video.addEventListener('ended', () => {
-            // This is when the fade to black occurs - *after* the video finishes
             overlay.style.opacity = '1'; 
             setTimeout(() => {
                 window.location.href = "https://github.com/KIRITOASUNAFOREVER";
