@@ -23,7 +23,7 @@
             width: 100%;
             height: 100vh;
             background-color: black;
-            opacity: 1;
+            opacity: 0; /* This was set to 1 before */
             transition: opacity 2s;
             z-index: 2;
         }
@@ -55,7 +55,7 @@
 
         // When video ends, fade out and redirect
         video.addEventListener('ended', () => {
-            overlay.style.opacity = '1';
+            overlay.style.opacity = '1'; // Now it will fade correctly
             setTimeout(() => {
                 window.location.href = "https://github.com/KIRITOASUNAFOREVER";
             }, 2000);
