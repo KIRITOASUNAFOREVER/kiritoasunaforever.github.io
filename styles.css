@@ -36,6 +36,20 @@ body, html {
     background-color: #005bb5;
 }
 
+#linkStartVideo {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw; /* Smaller responsive size: 60% of viewport width */
+    height: 34vw; /* Aspect ratio of 16:9 */
+    max-width: 800px; /* Maximum width */
+    max-height: 450px; /* Maximum height */
+    object-fit: contain;
+    z-index: 1;
+}
+
 .fadeOut {
     animation: fadeOutAnimation 1.5s forwards;
 }
