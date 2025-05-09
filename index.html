@@ -51,7 +51,7 @@
     </style>
 </head>
 <body>
-    <video id="linkStartVideo" preload="auto">
+    <video id="linkStartVideo" preload="auto" muted>
         <source src="Sword_Art_Online_LINK_START (1).mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
@@ -74,8 +74,9 @@
         button.addEventListener('click', () => {
             button.style.display = 'none'; // Hide the button
             video.style.display = 'block'; // Show the video
-            video.play();
-            audio.play();
+            video.muted = false; // Enable sound (unmute)
+            video.play(); // Start the video
+            audio.play(); // Start the audio
         });
 
         video.addEventListener('ended', () => {
