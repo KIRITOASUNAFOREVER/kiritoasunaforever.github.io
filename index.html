@@ -4,26 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Start - SAO Experience</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            overflow: hidden;
+            font-family: "Arial", sans-serif;
+        }
+        #linkStartVideo {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+        #fadeOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+            opacity: 0;
+            transition: opacity 2s;
+            z-index: 2;
+        }
+    </style>
 </head>
 <body>
-    <div id="overlay">
-        <div>
-            <img id="linkStartGif" src="https://media.tenor.com/CHc0B6c4GOUAAAAC/sao-sword-art-online.gif" alt="Link Start">
-            <button id="linkStartButton">
-                <span class="glow"></span>
-                <span class="glow"></span>
-                <span class="glow"></span>
-                <span class="glow"></span>
-                Link Start
-            </button>
-        </div>
-    </div>
-
-    <video id="linkStartVideo" preload="auto">
+    <video id="linkStartVideo" preload="auto" muted>
         <source src="Sword_Art_Online_LINK_START (1).mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+
+    <div id="fadeOverlay"></div>
 
     <audio id="linkStartAudio" preload="auto">
         <source src="Sword_Art_Online_LINK_START (1).mp3" type="audio/mp3">
@@ -33,18 +46,20 @@
     <script>
         const video = document.getElementById('linkStartVideo');
         const audio = document.getElementById('linkStartAudio');
-        const overlay = document.getElementById('overlay');
-        const button = document.getElementById('linkStartButton');
+        const overlay = document.getElementById('fadeOverlay');
 
-        button.addEventListener('click', () => {
-            overlay.classList.add('fadeOut');
-            audio.play();
-            video.style.display = 'block';
+        // Start the video and audio immediately on page load
+        window.onload = function() {
             video.play();
-        });
+            audio.play();
+        };
 
         video.addEventListener('ended', () => {
-            window.location.href = "https://github.com/KIRITOASUNAFOREVER";
+            // Fade to black after video ends
+            overlay.style.opacity = '1'; 
+            setTimeout(() => {
+                window.location.href = "https://github.com/KIRITOASUNAFOREVER"; // Redirect to your GitHub profile
+            }, 2000); // Wait for the fade transition to complete before redirecting
         });
     </script>
 </body>
