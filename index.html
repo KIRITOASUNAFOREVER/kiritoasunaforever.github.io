@@ -10,11 +10,13 @@
             padding: 0;
             background-color: black;
             overflow: hidden;
+            font-family: "Arial", sans-serif;
         }
         #linkStartVideo {
             width: 100%;
             height: 100vh;
             object-fit: cover;
+            display: none; /* Hidden until "Link Start" is clicked */
         }
         #fadeOverlay {
             position: absolute;
@@ -23,9 +25,28 @@
             width: 100%;
             height: 100vh;
             background-color: black;
-            opacity: 0; /* This was set to 1 before */
+            opacity: 0;
             transition: opacity 2s;
             z-index: 2;
+        }
+        #linkStartButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            color: white;
+            cursor: pointer;
+            z-index: 3;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -42,20 +63,23 @@
         Your browser does not support the audio element.
     </audio>
 
+    <div id="linkStartButton">Link Start</div>
+
     <script>
         const video = document.getElementById('linkStartVideo');
         const audio = document.getElementById('linkStartAudio');
         const overlay = document.getElementById('fadeOverlay');
+        const button = document.getElementById('linkStartButton');
 
-        // Trigger playback
-        window.addEventListener('click', () => {
+        button.addEventListener('click', () => {
+            button.style.display = 'none'; // Hide the button
+            video.style.display = 'block'; // Show the video
             video.play();
             audio.play();
         });
 
-        // When video ends, fade out and redirect
         video.addEventListener('ended', () => {
-            overlay.style.opacity = '1'; // Now it will fade correctly
+            overlay.style.opacity = '1';
             setTimeout(() => {
                 window.location.href = "https://github.com/KIRITOASUNAFOREVER";
             }, 2000);
