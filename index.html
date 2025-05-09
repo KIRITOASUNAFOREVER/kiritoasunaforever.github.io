@@ -10,7 +10,13 @@
     <div id="overlay">
         <div>
             <img id="linkStartGif" src="https://media.tenor.com/CHc0B6c4GOUAAAAC/sao-sword-art-online.gif" alt="Link Start">
-            <button id="linkStartButton">Link Start</button>
+            <button id="linkStartButton">
+                <span class="glow"></span>
+                <span class="glow"></span>
+                <span class="glow"></span>
+                <span class="glow"></span>
+                Link Start
+            </button>
         </div>
     </div>
 
@@ -31,7 +37,7 @@
         const button = document.getElementById('linkStartButton');
 
         button.addEventListener('click', () => {
-            overlay.classList.add('fadeOut'); // Trigger fade out animation
+            overlay.classList.add('fadeOut');
             audio.play();
             video.style.display = 'block';
             video.play();
