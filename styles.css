@@ -1,49 +1,51 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #1a1a1a;
-    color: white;
+body, html {
     margin: 0;
-    padding: 0;
-    text-align: center;
+    height: 100%;
+    overflow: hidden;
+    background-color: black;
 }
 
-h1 {
-    color: #ffcc00;
-    font-size: 2.5em;
+#overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-h3 {
-    color: #66ccff;
+#linkStartGif {
+    width: 500px;
 }
 
-hr {
-    border: 1px solid #ffcc00;
-    width: 80%;
-    margin: 20px 0;
-}
-
-ul {
-    list-style-type: none;
-}
-
-ul li {
-    font-size: 1.2em;
-    margin: 10px 0;
-}
-
-.linkstart-container {
-    padding-top: 30px;
-}
-
-img {
-    max-width: 100%;
-}
-
-a {
+#linkStartButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
     color: white;
-    text-decoration: none;
+    background-color: #0077ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-a:hover {
-    text-decoration: underline;
+#linkStartButton:hover {
+    background-color: #005bb5;
+}
+
+.fadeOut {
+    animation: fadeOutAnimation 1.5s forwards;
+}
+
+@keyframes fadeOutAnimation {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
 }
