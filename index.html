@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Start - SAO Experience</title>
     <style>
-        /* Your new CSS for body and initial overlay */
         body, html {
             margin: 0;
-            height: 100%; /* Ensure html and body take full height */
+            height: 100%;
             overflow: hidden;
             background-color: black;
-            font-family: Arial, sans-serif; /* Added a default font */
+            font-family: Arial, sans-serif;
         }
 
-        #overlay { /* This is your new initial overlay */
+        #overlay {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -23,24 +22,24 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 9999; /* Will be on top initially */
+            z-index: 9999;
         }
 
         #linkStartGif {
-            width: 500px; /* Adjust as needed, ensure you have a GIF */
-            max-width: 90%; /* Make it responsive */
+            width: 500px;
+            max-width: 90%;
         }
 
-        #linkStartButton { /* Your new button style */
+        #linkStartButton {
             margin-top: 20px;
-            padding: 12px 25px; /* Slightly increased padding */
+            padding: 12px 25px;
             font-size: 20px;
             color: white;
             background-color: #0077ff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* Smooth hover transition */
+            transition: background-color 0.3s ease;
         }
 
         #linkStartButton:hover {
@@ -57,34 +56,42 @@
             }
             to {
                 opacity: 0;
-                visibility: hidden; /* Hide after fading */
+                visibility: hidden;
             }
         }
 
-        /* CSS for the main video (from previous setup) */
+        /* === Updated CSS for #linkStartVideo === */
         #linkStartVideo {
-            width: 100%;
-            height: 100vh;
-            object-fit: cover;
-            display: none; /* Hidden until initial overlay is gone */
-            position: absolute; /* Ensure it's layered correctly if needed */
-            top: 0;
-            left: 0;
-            z-index: 1; /* Below the videoEndOverlay but above default body */
+            /* New size for the video player */
+            width: 80vw;   /* 80% of viewport width */
+            height: auto;  /* Maintain aspect ratio */
+            max-height: 80vh; /* Max 80% of viewport height */
+
+            /* Centering the video player */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            /* How the video content fits in the new dimensions */
+            object-fit: contain; /* Shows entire video, letterboxes if needed */
+                                 /* Use 'cover' to fill and crop if preferred */
+            
+            display: none;      /* Hidden initially */
+            z-index: 1;         /* Ensure it's above the body background */
         }
 
-        /* CSS for the overlay that appears AFTER video finishes (from previous setup) */
-        #videoEndOverlay { /* Renamed for clarity from original #fadeOverlay */
+        #videoEndOverlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
             background-color: black;
-            opacity: 0; /* Initially transparent */
-            transition: opacity 2s ease-in-out; /* Smooth fade-in */
-            z-index: 2; /* Above the video, below the initial #overlay if it were still visible */
-            display: none; /* Initially hidden, made visible via JS */
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            z-index: 2; 
+            display: none;
         }
     </style>
 </head>
@@ -108,43 +115,35 @@
 
     <script>
         const initialScreenOverlay = document.getElementById('overlay');
-        const newButton = document.getElementById('linkStartButton'); // Button in your new overlay
+        const newButton = document.getElementById('linkStartButton');
         
         const videoPlayer = document.getElementById('linkStartVideo');
         const mainAudio = document.getElementById('linkStartAudio');
         const endTransitionOverlay = document.getElementById('videoEndOverlay');
 
-        // Hide the video end overlay initially
-        endTransitionOverlay.style.display = 'block'; // Keep it in layout for opacity transition
+        endTransitionOverlay.style.display = 'block';
         endTransitionOverlay.style.opacity = '0';
-
 
         newButton.addEventListener('click', () => {
             initialScreenOverlay.classList.add('fadeOut');
-
-            // Listen for the end of the fadeOut animation on the initial overlay
             initialScreenOverlay.addEventListener('animationend', () => {
-                initialScreenOverlay.style.display = 'none'; // Completely hide it
-
-                // Now show and play the video
+                initialScreenOverlay.style.display = 'none';
                 videoPlayer.style.display = 'block';
-                videoPlayer.muted = false; // Unmute the video
+                videoPlayer.muted = false;
                 videoPlayer.play().catch(error => {
                     console.error("Video play failed:", error);
-                    // Handle browsers that might block autoplay with sound
-                    // You might need another user interaction to start video if this fails
                 });
                 mainAudio.play().catch(error => {
                     console.error("Audio play failed:", error);
                 });
-            }, { once: true }); // Ensure this listener runs only once
+            }, { once: true });
         });
 
         videoPlayer.addEventListener('ended', () => {
-            endTransitionOverlay.style.opacity = '1'; // Fade in the black overlay
+            endTransitionOverlay.style.opacity = '1';
             setTimeout(() => {
-                window.location.href = "https://github.com/KIRITOASUNAFOREVER"; // Redirect
-            }, 2000); // Wait for the 2s fade transition of endTransitionOverlay
+                window.location.href = "https://github.com/KIRITOASUNAFOREVER";
+            }, 2000);
         });
     </script>
 </body>
