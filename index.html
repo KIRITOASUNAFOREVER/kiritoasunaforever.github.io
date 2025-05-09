@@ -3,33 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Link Start!</title>
+    <title>Link Start - SAO Experience</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            overflow: hidden;
+        }
+        #linkStartVideo {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+        #fadeOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+            opacity: 1;
+            transition: opacity 2s;
+            z-index: 2;
+        }
+    </style>
 </head>
 <body>
+    <video id="linkStartVideo" preload="auto">
+        <source src="Sword_Art_Online_LINK_START (1).mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
-<div id="overlay">
-    <img id="linkStartGif" src="Sword_Art_Online_LINK_START (1).gif" alt="Link Start">
-    <button id="linkStartButton">⚔️ Link Start ⚔️</button>
-    <audio id="linkStartMusic">
-        <source src="sao-log-in-screen2.mp3" type="audio/mpeg">
+    <div id="fadeOverlay"></div>
+
+    <audio id="linkStartAudio" preload="auto">
+        <source src="sao-log-in-screen2.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
     </audio>
-</div>
 
-<script>
-    const button = document.getElementById('linkStartButton');
-    const overlay = document.getElementById('overlay');
-    const music = document.getElementById('linkStartMusic');
+    <script>
+        const video = document.getElementById('linkStartVideo');
+        const audio = document.getElementById('linkStartAudio');
+        const overlay = document.getElementById('fadeOverlay');
 
-    button.addEventListener('click', () => {
-        button.style.display = 'none';
-        music.play();
-        overlay.classList.add('fadeOut');
-        setTimeout(() => {
-            window.location.href = "https://github.com/KIRITOASUNAFOREVER";
-        }, 13000); // 13 seconds to match the music duration
-    });
-</script>
+        // Trigger playback
+        window.addEventListener('click', () => {
+            video.play();
+            audio.play();
+        });
 
+        // When video ends, fade out and redirect
+        video.addEventListener('ended', () => {
+            overlay.style.opacity = '1';
+            setTimeout(() => {
+                window.location.href = "https://github.com/KIRITOASUNAFOREVER";
+            }, 2000);
+        });
+    </script>
 </body>
 </html>
