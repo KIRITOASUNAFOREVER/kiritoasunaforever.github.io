@@ -17,7 +17,7 @@
             width: 100%;
             height: 100vh;
             object-fit: cover;
-            display: none; /* Hidden until "Link Start" is clicked */
+            display: none; /* Hidden until "Click Here to Access My Profile" is clicked */
         }
 
         #linkStartButton {
@@ -81,6 +81,9 @@
 
         // Event listener for button click
         button.addEventListener('click', () => {
+            // Change the button text to reflect it’s clicked
+            button.innerHTML = 'Starting...';
+
             // Hide the button and show the video
             button.style.display = 'none';
             video.style.display = 'block';
